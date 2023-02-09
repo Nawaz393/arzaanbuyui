@@ -11,7 +11,7 @@ Before you begin, make sure you have Node.js and npm (Node Package Manager) inst
 Installing
 Clone the repository to your local machine:
 
- ` git clone`
+ ` git clone https://github.com/Nawaz393/Simple-React-Project.git`
  
  Navigate to the project directory:
  
