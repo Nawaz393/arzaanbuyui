@@ -24,7 +24,7 @@ Clone the repository to your local machine:
   Start the development server:
   
  ` npm run dev `
- The website will be accessible at http://localhost:3000/ in your web browser.
+ The website will be accessible at http://localhost in your web browser.
 
 Built With
 
