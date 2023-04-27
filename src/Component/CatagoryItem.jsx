@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { image } from "./Anime";
-import { useLocation, useNavigate } from "react-router-dom";
-const Item = ({ link, title, tagline, id, price }) => {
+import { useNavigate } from "react-router-dom";
+const CatagoryItem =  ({ link, title, tagline, id, price }) => {
   const navigate = useNavigate();
   return (
-    <div //
+    <div  //
       className="group relative"
       onClick={(e) => {
         e.preventDefault();
 
-        navigate(`/product/${id}`, { state: null });
+        navigate(`//${id}`, { state: null });
         console.log(id);
       }}
     >
@@ -37,4 +37,4 @@ const Item = ({ link, title, tagline, id, price }) => {
   );
 };
 
-export default Item;
+export default CatagoryItem;
