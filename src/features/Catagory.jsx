@@ -15,9 +15,9 @@ const Catagory = () => {
     dispatch(getCatagory(catagory));
   }, [catagory]);
 
-  //   if (loading) {
-  //     return <Loader />;
-  //   }
+  if (products.isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen ">
