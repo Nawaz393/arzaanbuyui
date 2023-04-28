@@ -23,27 +23,44 @@ const Landing = () => {
   const [sponseredads, setSponseredads] = useState([{}]);
   const [search, setsearch] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getrecentProducts());
-    setdata(recentProducts?.value);
+    // dispatch(getrecentProducts());
+    // console.log(recentProducts?.value)
+    // setdata(recentProducts?.value);
 
-    if (recentProducts?.value?.length === 0) {
-      setMessage("No Products Found");
-    } else {
-      setMessage("");
-    }
+    // if (recentProducts?.value?.length === 0) {
+    //   setMessage("No Products Found");
+    // } else {
+    //   setMessage("");
+    // }
 
-    if (!recentProducts?.value) {
-      setMessage("No Products Found");
-    }
-    setshow1(data?.slice(0, show));
+    // if (!recentProducts?.value) {
+    //   setMessage("No Products Found");
+    // }
+
     (async () => {
       try {
-        const res = await axios.get("sponserad/all");
+        setLoading(true);
+        const [data, sponserad] = await Promise.all([
+          axios.get("/public/approved"),
+          axios.get("sponserad/all"),
+        ]);
 
-        const data = await res.data;
-        setSponseredads(data);
+        console.log(data, sponserad);
+        setdata(data.data);
+        setshow1(data.data?.slice(0, show));
+        setSponseredads(sponserad.data);
+        if (data?.data?.length === 0) {
+          setMessage("No Products Found");
+        } else {
+          setMessage("");
+        }
+
+        if (!data?.data) {
+          setMessage("No Products Found");
+        }
       } catch (error) {
         if (error.response) {
           toast.error(error.response.data);
@@ -52,10 +69,15 @@ const Landing = () => {
         } else {
           toast.error("Something went wrong");
         }
+      } finally {
+        setLoading(false);
       }
     })();
-  }, [dispatch, recentProducts?.value, show, data]);
+  }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="flex">
       <div className=" w-full fixed">
@@ -144,7 +166,6 @@ const Landing = () => {
                   />
                 );
               })}
-
 
               <div className="h-full  w-full flex justify-center items-center">
                 {" "}
