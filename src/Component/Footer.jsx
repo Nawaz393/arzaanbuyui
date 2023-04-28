@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "./Anime";
 export const Footer = () => {
   return (
-    <section className="mt-4 mb-0 h-[70vh]   w-full   bg-pink-600  ">
+    <section className="mt-4 mb-0 h-[70vh]   w-full   bg-zinc-800  ">
       <div className="flex flex-col justify-center px-10 h-full items-center ">
         <h1 className="text-white text-4xl font-quick font-bold py-4 ">
           Feeling in love?<span className="italic">Post Ads !</span>{" "}

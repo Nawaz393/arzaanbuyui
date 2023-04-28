@@ -32,9 +32,9 @@ const UserDashboard = () => {
     { name: "Create Ad", tab: "newad" },
     { name: "Pending Review", tab: "pendingads" },
     { name: "Active Ads ", tab: "listedads" },
-    { name: "Sponsor Logo", tab: "sponserad" },
-    { name: "Pending Logos", tab: "sponseredpendingad" },
-    { name: "Sponsored Logos", tab: "sponseredad" },
+    { name: "Sponsor Ad", tab: "sponserad" },
+    { name: "Pending Sponser Ads", tab: "sponseredpendingad" },
+    { name: "Sponsored Ads", tab: "sponseredad" },
     { name: "History", tab: "history" },
   ];
 
@@ -85,7 +85,7 @@ const UserDashboard = () => {
           },
         }}
       >
-        {items.map((item, index) => {
+        {items.map((item) => {
           return (
             <button
               id="home"
@@ -110,7 +110,7 @@ const UserDashboard = () => {
         {activetab === "newad" && (
           <NewAdTab userid={user.user._id} role={user.user.role} />
         )}
-        {activetab === "history" && <HistoryTab id={user.user._id}/>}
+        {activetab === "history" && <HistoryTab id={user.user._id} />}
         {activetab === "listedads" && <ListedAdsTab id={user.user._id} />}
         {activetab === "sponserad" && <SponserAdTab id={user.user._id} />}
         {activetab === "sponseredpendingad" && (
@@ -119,7 +119,7 @@ const UserDashboard = () => {
         {activetab === "pendingads" && (
           <PendingAdTab ad={ad} id={user.user._id} />
         )}
-        {activetab==="sponseredad" && <Listedogos id={user.user._id}/>}
+        {activetab === "sponseredad" && <Listedogos id={user.user._id} />}
       </div>
     </div>
   );

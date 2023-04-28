@@ -46,7 +46,9 @@ const SponserAdTab = ({ id }) => {
   };
 
   const handleSubmit = async (data) => {
+    console.log(image, link);
     setLoading(true);
+
     var load = toast.loading("Sponsering your Ad");
     try {
       const res = await axios.post("/sponserad/user", {
