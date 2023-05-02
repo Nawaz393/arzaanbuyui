@@ -14,7 +14,7 @@ import Success from "./features/payment/Success";
 import SponserSuccess from "./features/payment/SponserSuccess";
 const App = () => {
   // base url for api
-  axios.defaults.baseURL = "http://localhost:3000";
+  axios.defaults.baseURL = "https://demo-s4hp.onrender.com";
   //https://demo-s4hp.onrender.com
   return (
     <Routes>
