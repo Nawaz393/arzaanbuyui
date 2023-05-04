@@ -35,38 +35,24 @@ export default function ProductDetail() {
   return (
     <div className="bg-white  ">
       <div className="pt-6 ">
-        <div className="mx-auto mt-6 max-w-2xl gap-y-2 sm:px-6 grid md:max-w-7xl md:grid-cols-3 md:gap-x-8 md:px-8">
-          <div className="aspect-w-3 aspect-h-4  overflow-hidden rounded-lg md:block">
-            <img
-              src={item?.images[0]}
-              alt="not found"
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-          <div className=" grid gap-y-2 md:grid-cols-1 md:gap-y-8">
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={item?.images[1]}
-                alt="not found"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={item?.images[2]}
-                alt="not found"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
-          <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg md:aspect-w-3 md:aspect-h-4">
-            <img
-              src={item?.images[3]}
-              alt="not found"
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-        </div>
+      <div className="mx-auto mt-6 max-w-2xl gap-y-2 sm:px-6 grid md:max-w-7xl md:grid-cols-3 md:gap-x-3 md:px-8 ">
+  <div className="aspect-w-2 aspect-h-4 overflow-hidden rounded-lg md:block h-[32rem]">
+    <img src={item?.images[0]} alt="not found" className="h-full w-full object-cover object-center" />
+  </div>
+  <div className="grid gap-y-2 md:grid-cols-1 md:gap-y-1">
+    <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg  md:h-[16rem] md:col-span-1">
+      <img src={item?.images[1]} alt="not found" className="h-full w-full object-cover object-center" />
+    </div>
+    <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg  md:h-[16rem] md:col-span-1">
+      <img src={item?.images[2]} alt="not found" className="h-full w-full object-cover object-center" />
+    </div>
+  </div>
+  <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg md:aspect-w-3 md:aspect-h-4 h-[32rem]">
+    <img src={item?.images[3]} alt="not found" className="h-full w-full object-cover object-center" />
+  </div>
+</div>
+
+
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 md:grid md:max-w-7xl md:grid-cols-3 md:grid-rows-[auto,auto,1fr] md:gap-x-8 md:px-8 md:pt-16 md:pb-24">

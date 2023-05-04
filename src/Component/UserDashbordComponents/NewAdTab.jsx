@@ -31,74 +31,57 @@ const NewAd = ({ userid, role }) => {
     website: "",
   });
 
-  const handelfiles = (e) => {
-    let arrfiles = [];
-    if (selectedfiles.length === 4) {
-      toast.error("you can only select 4 images");
-      return;
-    }
 
-    if (length + e.target.files.length > 4) {
-      toast.error("you can only select 4 images");
-      return;
-    }
-
-    const files = e.target.files;
-
-    arrfiles = Array.from(files);
-
-    setlength(length + files.length);
-
-    Setselectedfiles((prev) => [...prev, ...arrfiles]);
-    console.log(selectedfiles);
-  };
   const handleImage = async (e) => {
     const files = e.target.files;
-
-    let newarr = [];
+    const newarr = [];
+  
     if (form.images.length === 4) {
       toast.error("you can only select 4 images");
       return;
     }
-
+  
     if (form.images.length + files.length > 4) {
       toast.error("you can only select 4 images");
       return;
     }
-
+  
     // convert filelist to array and then to base64 and push to newarr
     const fileArray = Array.from(files);
-
-    // if (fileArray.length != 4) {
-    //   toast.error("you should have to select 4 images");
-    //   return;
-    // }
-
+  
     // create an array of Promises that will resolve with the base64 encoded strings
     const promises = fileArray.map((file) => {
       return new Promise((resolve) => {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
+        reader.onload = () => {
+          const image = new Image();
+          image.src = reader.result;
+          image.onload = () => {
+            if (image.width === 1080 && image.height === 1080) {
+              resolve(reader.result);
+            } else {
+              toast.error("Image must be 1080x1080 pixels");
+              resolve(null);
+            }
+          };
+        };
         reader.readAsDataURL(file);
       });
     });
-
-    // wait htmlFor all Promises to resolve
+  
+    // wait for all Promises to resolve
     const results = await Promise.all(promises);
-    console.log(results);
+  
+    // filter out any null values (i.e. invalid images)
+    const validResults = results.filter((result) => result !== null);
+  
     // add the base64 encoded strings to the newarr array
-
-    // rest of the code
-
-    // setForm({ ...form, images: [...form.images, newarr] });
-    setForm((prev) => ({ ...prev, images: [...prev.images, ...results] }));
-
-    console.log(form.images);
-
+    setForm((prev) => ({ ...prev, images: [...prev.images, ...validResults] }));
+  
     // make the input empty
-
     e.target.value = null;
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
