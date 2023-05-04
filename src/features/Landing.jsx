@@ -118,7 +118,7 @@ const Landing = () => {
           <p className="text-center text-lg text-gray-500">
             {" "}
             Discover unbeatable bargains on a vast range of products and
-            services with our comprehensive platform for finding deals on
+            services with our comprehensive platform htmlFor finding deals on
             anything you need.
           </p>
         </section>

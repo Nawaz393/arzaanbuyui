@@ -13,7 +13,7 @@ import Search from "./features/Search";
 import Success from "./features/payment/Success";
 import SponserSuccess from "./features/payment/SponserSuccess";
 const App = () => {
-  // base url for api
+  // base url htmlFor api
   axios.defaults.baseURL = "http://localhost:3000";
   //https://demo-s4hp.onrender.com
   return (

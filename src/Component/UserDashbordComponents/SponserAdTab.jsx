@@ -22,7 +22,7 @@ const SponserAdTab = ({ id }) => {
 
     {
       name: "Pro",
-      description: "Boost your ad for 2 weeks",
+      description: "Boost your ad htmlFor 2 weeks",
       price: "19.99",
       features: [
         "your logo will be shown at the bottom of the page",

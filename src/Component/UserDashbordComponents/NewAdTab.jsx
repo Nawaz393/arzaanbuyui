@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { options } from "../options";
 
 import axios from "axios";
@@ -10,8 +10,11 @@ import Loader from "../Loader";
 const NewAd = ({ userid, role }) => {
   const [loading, setloading] = useState(false);
 
+  const imageinput = useRef(null);
+
+  const [length, setlength] = useState(0);
   const customid = "toast";
- 
+  const [selectedfiles, Setselectedfiles] = useState([]);
 
   const [form, setForm] = useState({
     name: "",
@@ -28,17 +31,48 @@ const NewAd = ({ userid, role }) => {
     website: "",
   });
 
+  const handelfiles = (e) => {
+    let arrfiles = [];
+    if (selectedfiles.length === 4) {
+      toast.error("you can only select 4 images");
+      return;
+    }
+
+    if (length + e.target.files.length > 4) {
+      toast.error("you can only select 4 images");
+      return;
+    }
+
+    const files = e.target.files;
+
+    arrfiles = Array.from(files);
+
+    setlength(length + files.length);
+
+    Setselectedfiles((prev) => [...prev, ...arrfiles]);
+    console.log(selectedfiles);
+  };
   const handleImage = async (e) => {
     const files = e.target.files;
+
     let newarr = [];
+    if (form.images.length === 4) {
+      toast.error("you can only select 4 images");
+      return;
+    }
+
+    if (form.images.length + files.length > 4) {
+      toast.error("you can only select 4 images");
+      return;
+    }
 
     // convert filelist to array and then to base64 and push to newarr
     const fileArray = Array.from(files);
 
-    if (fileArray.length != 4) {
-      toast.error("you should have to select 4 images");
-      return;
-    }
+    // if (fileArray.length != 4) {
+    //   toast.error("you should have to select 4 images");
+    //   return;
+    // }
 
     // create an array of Promises that will resolve with the base64 encoded strings
     const promises = fileArray.map((file) => {
@@ -49,15 +83,21 @@ const NewAd = ({ userid, role }) => {
       });
     });
 
-    // wait for all Promises to resolve
+    // wait htmlFor all Promises to resolve
     const results = await Promise.all(promises);
     console.log(results);
     // add the base64 encoded strings to the newarr array
-    newarr = [...results];
 
     // rest of the code
 
-    setForm({ ...form, images: newarr });
+    // setForm({ ...form, images: [...form.images, newarr] });
+    setForm((prev) => ({ ...prev, images: [...prev.images, ...results] }));
+
+    console.log(form.images);
+
+    // make the input empty
+
+    e.target.value = null;
   };
 
   const handleChange = (e) => {
@@ -67,16 +107,67 @@ const NewAd = ({ userid, role }) => {
     setForm({ ...form, [name]: value });
   };
 
+  const validateForm = () => {
+    if (!form.name) {
+      toast.error("Please enter a name.");
+      return false;
+    }
+    if (!form.tagline) {
+      toast.error("Please enter a tagline.");
+      return false;
+    }
+    if (!form.price) {
+      toast.error("Please enter a price.");
+      return false;
+    }
+    if (!form.category) {
+      toast.error("Please select a category.");
+      return false;
+    }
+    if (!form.detail) {
+      toast.error("Please enter details.");
+      return false;
+    }
+    if (!form.description) {
+      toast.error("Please enter a description.");
+      return false;
+    }
+    if (form.images.length !== 4) {
+      toast.error("Please select 4 images.");
+      return false;
+    }
+    if (!form.email) {
+      toast.error("Please enter an email address.");
+      return false;
+    }
+    if (!form.website) {
+      toast.error("Please enter a website.");
+      return false;
+    }
+    if (!form.whatsapp && !form.phone) {
+      toast.error("Please enter at least one contact method.");
+      return false;
+    }
+    if (!form.address) {
+      toast.error("Please enter an address.");
+      return false;
+    }
+    return true;
+  };
   const handelSubmit = async (e) => {
     e.preventDefault();
-
+    if (!validateForm()) {
+      return;
+    }
     setloading(true);
 
     const ptaost = toast.loading("Uploading your Ad please wait...", {
       autoClose: false,
     });
-
     console.log(form);
+
+
+
     try {
       const res = await axios.post("personal/pending", {
         ...form,
@@ -265,7 +356,7 @@ const NewAd = ({ userid, role }) => {
                         >
                           <path
                             d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            strokeWidth={2}
+                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
@@ -273,29 +364,34 @@ const NewAd = ({ userid, role }) => {
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="file-upload"
-                            className=" cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                            className="cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span>Upload a file</span>
+                            <span>Attach files</span>
                             <input
                               id="file-upload"
                               name="images"
                               type="file"
-                              required
+                          
                               accept="image/*"
-                              min={4}
-                              max={4}
                               multiple
+                              ref={imageinput}
                               onChange={handleImage}
                               className="sr-only"
+                    
                             />
                           </label>
                           <p className="pl-1">or drag and drop 4 Images </p>
                         </div>
                         <p className="text-xs text-gray-500">
-                          PNG, JPG up to 10MB
+                          PNG, JPG up to 10MB 1080x1080 pixels
+                        </p>
+                        <p className="text-xs text-blue-600 font-semibold">
+                          {/* {selectedfiles.map((item) => item.name).join(", ")}{" "} */}
+                          {form.images.length} files selected
                         </p>
                       </div>
                     </div>
+
                     <div className="col-span-6 sm:col-span-6">
                       <label
                         htmlFor="email-address"

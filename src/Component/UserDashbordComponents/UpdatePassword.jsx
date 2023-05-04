@@ -84,6 +84,7 @@ function UpdatePassword({ id }) {
             </label>
             <input
               type="password"
+              autoComplete="password"
               name="password"
               value={formState.password}
               onChange={handleInputChange}
@@ -107,6 +108,7 @@ function UpdatePassword({ id }) {
             <input
               type="password"
               name="cpassword"
+              autoComplete="none"
               value={formState.cpassword}
               onChange={handleInputChange}
               className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
