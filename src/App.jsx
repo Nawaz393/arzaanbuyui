@@ -13,8 +13,10 @@ import Search from "./features/Search";
 import Success from "./features/payment/Success";
 import SponserSuccess from "./features/payment/SponserSuccess";
 const App = () => {
-  // base url htmlFor api
-  axios.defaults.baseURL = "http://localhost:3000";
+
+  // base url for api
+  axios.defaults.baseURL = "https://demo-s4hp.onrender.com";
+
   //https://demo-s4hp.onrender.com
   return (
     <Routes>
