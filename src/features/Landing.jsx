@@ -6,16 +6,12 @@ import Item from "../Component/Item";
 import { toast } from "react-toastify";
 import { BiSearch } from "react-icons/bi";
 import { Footer } from "../Component/Footer";
-import { getrecentProducts } from "./RecentProductSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Loader from "../Component/Loader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Landing = () => {
-  const recentProducts = useSelector((state) => state.product);
   const user = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
 
   const [data, setdata] = useState([]);
   const [show, setshow] = useState(4);
@@ -26,20 +22,6 @@ const Landing = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    // dispatch(getrecentProducts());
-    // console.log(recentProducts?.value)
-    // setdata(recentProducts?.value);
-
-    // if (recentProducts?.value?.length === 0) {
-    //   setMessage("No Products Found");
-    // } else {
-    //   setMessage("");
-    // }
-
-    // if (!recentProducts?.value) {
-    //   setMessage("No Products Found");
-    // }
-
     (async () => {
       try {
         setLoading(true);
@@ -62,6 +44,7 @@ const Landing = () => {
           setMessage("No Products Found");
         }
       } catch (error) {
+        console.log(error);
         if (error.response) {
           toast.error(error.response.data);
         } else if (error.code === "ERR_NETWORK") {

@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setToken } from "./useSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Login() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const user = useSelector((state) => state.user.value);
+
+  useEffect(() => {
+    if (user?.token) {
+      navigate("/userDashboard");
+    }
+  }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,8 +37,8 @@ export default function Login() {
       if (res.status === 200) {
         toast.success("Logined successfully");
         dispatch(setToken(res.data));
-        sessionStorage.setItem("token", JSON.stringify(res.data));
-        navigate("/userDashboard");
+        localStorage.setItem("token", JSON.stringify(res.data));
+        window.location.replace("/userDashboard");
       }
     } catch (error) {
       console.log(error);

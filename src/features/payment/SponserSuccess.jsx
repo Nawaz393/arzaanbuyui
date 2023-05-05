@@ -14,8 +14,10 @@ const SponserSuccess = () => {
   const token = searchParams.get("token");
   const PayerID = searchParams.get("PayerID");
 
-  console.log(paymentId, token, PayerID);
   useEffect(() => {
+    if (!paymentId || !token || !PayerID) {
+      navigate("/userDashboard");
+    }
     async function fetchSession() {
       setLoading(true);
       try {
@@ -29,7 +31,6 @@ const SponserSuccess = () => {
 
         if (products.status === 200) {
           const productsJson = await products.data;
-          console.log(productsJson);
           setSession(productsJson);
         }
       } catch (error) {

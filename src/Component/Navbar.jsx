@@ -26,7 +26,7 @@ const Navbar = () => {
             whileHover="animate"
             className="text-white font-quick  mr-2 lg:mr-5"
             onClick={() => {
-              sessionStorage.clear();
+              localStorage.clear();
               dispatch(deleteToken());
               navigate("/");
             }}

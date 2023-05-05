@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import data from "./data";
 export const getCatagory = createAsyncThunk(
   "Categoryproducts/getCategoryproducts",
   async (category) => {
@@ -11,10 +10,9 @@ export const getCatagory = createAsyncThunk(
         },
       });
       const data = await response.data;
-      console.log(data);
       return data;
     } catch (error) {
-      console.log(error);
+      
     }
   }
 );

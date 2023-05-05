@@ -14,7 +14,7 @@ const Slide = () => {
       >
         Discover.
       </Link>
-      <ul className="lg:flex  w-1/4 justify-evenly ">
+      <ul className="lg:flex  w-1/4 justify-evenly  pr-4 sm:pr-0">
         <li className=" sm:text-lg font-open tracking-tighter font-semibold ">
           <select
             className=" bg-gray-100 focus:outline-none  focus:border-transparent"
@@ -37,6 +37,9 @@ const Slide = () => {
       <motion.button
         variants={Button}
         whileHover="animate"
+        onClick={() => {
+          navigate("/userDashboard");
+        }}
         className="text-sm font-quick font-semibold bg-white py-4 px-8 rounded-md hidden lg:block"
       >
         Sponser Ads

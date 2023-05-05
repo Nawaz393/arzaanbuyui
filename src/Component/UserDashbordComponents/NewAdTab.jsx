@@ -12,9 +12,9 @@ const NewAd = ({ userid, role }) => {
 
   const imageinput = useRef(null);
 
-  const [length, setlength] = useState(0);
+ 
   const customid = "toast";
-  const [selectedfiles, Setselectedfiles] = useState([]);
+
 
   const [form, setForm] = useState({
     name: "",
@@ -34,7 +34,7 @@ const NewAd = ({ userid, role }) => {
 
   const handleImage = async (e) => {
     const files = e.target.files;
-    const newarr = [];
+
   
     if (form.images.length === 4) {
       toast.error("you can only select 4 images");
@@ -85,7 +85,6 @@ const NewAd = ({ userid, role }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // dispatch(setAdValues({ name, value }));
 
     setForm({ ...form, [name]: value });
   };
@@ -147,7 +146,7 @@ const NewAd = ({ userid, role }) => {
     const ptaost = toast.loading("Uploading your Ad please wait...", {
       autoClose: false,
     });
-    console.log(form);
+
 
 
 

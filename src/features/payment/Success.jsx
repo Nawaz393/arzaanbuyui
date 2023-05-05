@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Receipt from "../../Component/Receipt";
 import Loader from "../../Component/Loader";
@@ -13,9 +13,11 @@ const Success = () => {
   const paymentId = searchParams.get("paymentId");
   const token = searchParams.get("token");
   const PayerID = searchParams.get("PayerID");
-
-  console.log(paymentId, token, PayerID);
+  const navigate = useNavigate();
   useEffect(() => {
+    if (!paymentId || !token || !PayerID) {
+      navigate("/userDashboard");
+    }
     async function fetchSession() {
       setLoading(true);
       try {
@@ -29,7 +31,6 @@ const Success = () => {
 
         if (products.status === 200) {
           const productsJson = await products.data;
-          console.log(productsJson);
           setSession(productsJson);
         }
       } catch (error) {

@@ -12,12 +12,22 @@ import Catagory from "./features/Catagory";
 import Search from "./features/Search";
 import Success from "./features/payment/Success";
 import SponserSuccess from "./features/payment/SponserSuccess";
+import { useSelector } from "react-redux";
+import SecureRoute from "./features/SecureRoute";
+import AboutUs from "./features/AboutUs";
+import TermsAndConditions from "./features/TermsAndConditions";
 const App = () => {
-
+  const user = useSelector((state) => state.user.value);
   // base url for api
-  axios.defaults.baseURL = "https://demo-s4hp.onrender.com";
+  // axios.defaults.baseURL = "https://demo-s4hp.onrender.com";
+  axios.defaults.baseURL = "http://localhost:3000";
 
-  //https://demo-s4hp.onrender.com
+  const token = localStorage.getItem("token")?.token ?? "";
+  axios.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${user?.token || token}`;
+   
+    return config;
+  });
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
@@ -26,11 +36,15 @@ const App = () => {
         <Route path="/catagory/:catagory" element={<Catagory />} />
         <Route path="/search/:search" element={<Search />} />
         <Route path="/signup" element={<Register />} />
-        <Route path="/userDashboard" element={<UserDashboard />} />
         <Route path="/Forgot" element={<Forgot />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/success" element={<Success />} />
-        <Route path="/sponserSuccess" element={<SponserSuccess />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route element={<SecureRoute />}>
+          <Route path="/userDashboard" element={<UserDashboard />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/sponserSuccess" element={<SponserSuccess />} />
+        </Route>
       </Route>
     </Routes>
   );

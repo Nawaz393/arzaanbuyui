@@ -11,7 +11,7 @@ const Item = ({ link, title, tagline, id, price }) => {
         e.preventDefault();
 
         navigate(`/product/${id}`, { state: null });
-        console.log(id);
+    
       }}
     >
       <div className="min-h-80 aspect-w-1 aspect-h-1  w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">

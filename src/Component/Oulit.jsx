@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import Slide from "./Slide";
 import Navbar from "./Navbar";
 import { Footer } from "./Footer";
-// import Header from "./Header";
 const Oulit = () => {
   return (
     <div>

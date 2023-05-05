@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 
 export const tokenSlice = createSlice({
   name: "token",
   initialState: {
-    value: JSON.parse(sessionStorage.getItem("token")) || null,
+    value: JSON.parse(localStorage.getItem("token")) || null,
   },
 
   reducers: {
@@ -15,6 +16,13 @@ export const tokenSlice = createSlice({
     },
   },
 });
+
+
+
+
+
+
+
 
 export const { setToken, deleteToken } = tokenSlice.actions;
 
