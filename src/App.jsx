@@ -19,8 +19,8 @@ import TermsAndConditions from "./features/TermsAndConditions";
 const App = () => {
   const user = useSelector((state) => state.user.value);
   // base url for api
-  // axios.defaults.baseURL = "https://demo-s4hp.onrender.com";
-  axios.defaults.baseURL = "http://localhost:3000";
+  axios.defaults.baseURL = "https://demo-s4hp.onrender.com";
+  // axios.defaults.baseURL = "http://localhost:3000";
 
   const token = localStorage.getItem("token")?.token ?? "";
   axios.interceptors.request.use((config) => {
